@@ -1,0 +1,8 @@
+{
+  "name": "Keyboard",
+  "description": "An open-source, customizable keyboard for Android",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
