@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/keyboard_holder"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#060B14"
+    android:paddingStart="1dp"
+    android:paddingEnd="1dp"
+    android:paddingBottom="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar_holder"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/keyboard_dark_background"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_toolbar_neon"
         app:layout_constraintBottom_toTopOf="@+id/keyboard_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -19,8 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:weightSum="6">
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/toolbar_sticker"
@@ -33,6 +40,12 @@
                 android:contentDescription="@string/settings"
                 android:src="@drawable/ic_toolbar_sticker" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4D00D2FF" />
+
             <ImageView
                 android:id="@+id/toolbar_emoji"
                 android:layout_width="0dp"
@@ -43,6 +56,12 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/emojis"
                 android:src="@drawable/ic_toolbar_emoji" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4D00D2FF" />
 
             <ImageView
                 android:id="@+id/voice_input_button"
@@ -55,6 +74,12 @@
                 android:contentDescription="@string/switch_to_voice_typing"
                 android:src="@drawable/ic_toolbar_mic" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4D00D2FF" />
+
             <ImageView
                 android:id="@+id/toolbar_cursor"
                 android:layout_width="0dp"
@@ -66,6 +91,12 @@
                 android:contentDescription="@string/typing_and_input"
                 android:src="@drawable/ic_toolbar_cursor" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4D00D2FF" />
+
             <ImageView
                 android:id="@+id/pinned_clipboard_items"
                 android:layout_width="0dp"
@@ -76,6 +107,12 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/clipboard_pinned"
                 android:src="@drawable/ic_toolbar_clipboard" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4D00D2FF" />
 
             <ImageView
                 android:id="@+id/toolbar_collapse"

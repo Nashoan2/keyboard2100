@@ -652,13 +652,10 @@ class MyKeyboardView @JvmOverloads constructor(
         }
 
         val isMainKeyboard = changedView == null || changedView.id != R.id.mini_keyboard_view
-        mKeyColor = Color.parseColor("#202737")
-        mKeyColorPressed = Color.parseColor("#2f394e")
-        mKeyBackground = if (mShowKeyBorders && isMainKeyboard) {
-            resources.getDrawable(R.drawable.keyboard_key_selector_outlined, context.theme)
-        } else {
-            resources.getDrawable(R.drawable.keyboard_key_selector, context.theme)
-        }
+        mKeyColor = Color.parseColor("#0B1626")
+        mKeyColorPressed = Color.parseColor("#162842")
+        mShowKeyBorders = true
+        mKeyBackground = resources.getDrawable(R.drawable.keyboard_key_selector_outlined, context.theme)
 
         if (!isMainKeyboard) {
             val previewBackground = background as LayerDrawable
@@ -668,12 +665,12 @@ class MyKeyboardView @JvmOverloads constructor(
                 .applyColorFilter(mStrokeColor)
             background = previewBackground
         } else {
-            background = ColorDrawable(mKeyboardBackgroundColor)
+            background = ColorDrawable(Color.parseColor("#060B14"))
         }
 
         keyboardViewBinding?.apply {
             topKeyboardDivider.beGone()
-            mToolbarHolder?.background = ColorDrawable(mKeyboardBackgroundColor)
+            mToolbarHolder?.background = resources.getDrawable(R.drawable.bg_toolbar_neon, context.theme)
 
             toolbarSticker.applyColorFilter(Color.WHITE)
             toolbarEmoji.applyColorFilter(Color.WHITE)
@@ -856,28 +853,20 @@ class MyKeyboardView @JvmOverloads constructor(
             setupKeyBackground(key, code, canvas)
             val isCyanKey = label == "AR"
             val textColor = when {
-                key.pressed -> if (isCyanKey) Color.parseColor("#8000BCD4") else mTextColor.adjustAlpha(0.5f)
-                isCyanKey -> Color.parseColor("#00BCD4")
-                code == KEYCODE_SPACE && label.orEmpty().length > 1 -> mTextColor.adjustAlpha(HIGHER_ALPHA)
-                else -> mTextColor
+                key.pressed -> if (isCyanKey) Color.parseColor("#8000E5FF") else Color.WHITE.adjustAlpha(0.6f)
+                isCyanKey -> Color.parseColor("#00E5FF")
+                else -> Color.WHITE
             }
 
             // Switch the character to uppercase if shift is pressed
             if (label?.isNotEmpty() == true) {
-                // For characters, use large font. For labels like "Done", use small font.
-                if (label == "123" || label == "AR") {
+                paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                if (label == "123" || label == "AR" || label == "لا") {
                     paint.textSize = mLabelTextSize.toFloat()
-                    paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-                } else if (code == KEYCODE_SPACE && key.label.length > 1) {
-                    // Use smaller font size for current language label on space bar
+                } else if (code == KEYCODE_SPACE) {
                     paint.textSize = mSpaceBarTextSize.toFloat()
-                    paint.typeface = customTypeface
-                } else if (label.length > 1) {
-                    paint.textSize = mLabelTextSize.toFloat()
-                    paint.typeface = Typeface.create(customTypeface, Typeface.BOLD)
                 } else {
                     paint.textSize = mKeyTextSize.toFloat()
-                    paint.typeface = customTypeface
                 }
 
                 paint.color = textColor
@@ -933,13 +922,11 @@ class MyKeyboardView @JvmOverloads constructor(
                 }
 
                 if (code == KEYCODE_ENTER) {
-                    val enterColor = if (key.pressed) Color.parseColor("#8000BCD4") else Color.parseColor("#00BCD4")
+                    val enterColor = if (key.pressed) Color.parseColor("#8000E5FF") else Color.parseColor("#00E5FF")
                     key.icon!!.applyColorFilter(enterColor)
                     key.secondaryIcon?.applyColorFilter(enterColor.adjustAlpha(0.6f))
                 } else if (code == KEYCODE_DELETE) {
-                    val deleteColor = if (key.pressed) Color.parseColor("#8000BCD4") else Color.parseColor("#00BCD4")
-                    key.icon!!.applyColorFilter(deleteColor)
-                    key.secondaryIcon?.applyColorFilter(deleteColor.adjustAlpha(0.6f))
+                    key.icon!!.alpha = if (key.pressed) 180 else 255
                 } else if (
                     code in arrayOf(
                         KEYCODE_SHIFT,
@@ -1004,12 +991,9 @@ class MyKeyboardView @JvmOverloads constructor(
     }
 
     private fun setupKeyBackground(key: MyKeyboard.Key, keyCode: Int, canvas: Canvas) {
-        val keyBackground = when {
-            keyCode == KEYCODE_SPACE && key.label.length > 1 -> getSpaceKeyBackground()
-            else -> mKeyBackground
-        }
+        val keyBackground = mKeyBackground ?: return
 
-        val bounds = keyBackground!!.bounds
+        val bounds = keyBackground.bounds
         if (key.width != bounds.right || key.height != bounds.bottom) {
             keyBackground.setBounds(0, 0, key.width, key.height)
         }
@@ -1018,19 +1002,6 @@ class MyKeyboardView @JvmOverloads constructor(
             key.pressed -> intArrayOf(android.R.attr.state_pressed)
             key.focused -> intArrayOf(android.R.attr.state_focused)
             else -> intArrayOf()
-        }
-
-        if (key.focused) {
-            val keyColor = if (key.pressed) mKeyColorPressed else mKeyColor
-            keyBackground.applyColorFilter(keyColor)
-        } else if (mShowKeyBorders) {
-            val keyColor = if (key.pressed) {
-                mKeyColorPressed
-            } else {
-                mKeyColor
-            }
-
-            keyBackground.applyColorFilter(keyColor)
         }
 
         canvas.translate(key.x.toFloat(), key.y.toFloat())

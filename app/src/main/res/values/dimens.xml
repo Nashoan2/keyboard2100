@@ -5,7 +5,7 @@
     <dimen name="toolbar_height">46dp</dimen>
     <dimen name="toolbar_icon_height">32dp</dimen>
     <dimen name="clip_drag_icon_height">40dp</dimen>
-    <dimen name="key_height">60dp</dimen>
+    <dimen name="key_height">56dp</dimen>
     <dimen name="vertical_correction">-10dp</dimen>
     <dimen name="clip_pin_size">28dp</dimen>
     <dimen name="emoji_item_size">42dp</dimen>
@@ -13,9 +13,9 @@
     <dimen name="emoji_palette_btn_size">42dp</dimen>
     <dimen name="suggestion_max_width">200dp</dimen>
 
-    <dimen name="keyboard_text_size">22sp</dimen>
+    <dimen name="keyboard_text_size">24sp</dimen>
     <dimen name="preview_text_size">26sp</dimen>
-    <dimen name="label_text_size">16sp</dimen>      <!-- text size used at keys with longer labels, like "123" -->
+    <dimen name="label_text_size">17sp</dimen>      <!-- text size used at keys with longer labels, like "123" -->
     <dimen name="emoji_text_size">30sp</dimen>
     <dimen name="emoji_category_text_size">13sp</dimen>
     <dimen name="space_bar_text_size">13sp</dimen>
